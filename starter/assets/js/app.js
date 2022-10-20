@@ -24,8 +24,10 @@ function displayTask() {
             NbrTodo.innerHTML = ctd;
             todo.innerHTML +=
                 `<button class="task d-flex p-2 border-0 border-top">
-                    <div class="">
+                    <div class="d-grid">
                         <i class="fa-regular fa-circle-question text-success ms-2 mt-2 fs-4"></i>
+                        <i class="bi bi-trash-fill text-danger fs-4 ms-2 mt-2"></i>
+                        <i class="bi bi-pencil-square ms-2 mt-1 fs-4"></i>
                     </div>
                     <div class="text-start ms-2 mt-1">
                         <div class="fw-bold text-dark">${tasks[i].title}</div>
@@ -125,25 +127,29 @@ function createTask() {
             let status = document.getElementById("status");
             let date = document.getElementById("date");
             let description = document.getElementById("description");
-            // let type = document.querySelectorAll("input[name='type']:checked");
+            let feature = document.getElementById("Feature");
+            let bug = document.getElementById("Bug");
+            var type;
+
+            if (feature.checked)
+                type = feature.id;
+            else
+                type = bug.id;
 
             let task = {
                 'title': title.value,
-                // 'type' : type.value,
+                'type': type,
                 'priority': priority.value,
                 'status': status.value,
                 'date': date.value,
                 'description': description.value,
-
             }
             console.log(task);
             tasks.push(task);
+            clearTasks();
             displayTask();
         }
     }
-
-
-
 }
 
 
