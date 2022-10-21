@@ -5,7 +5,7 @@
 
 // console.log()
 
-
+document.getElementById('form').reset();
 var todo = document.getElementById("to-do-tasks");
 var inProgress = document.getElementById("in-progress-tasks");
 var done = document.getElementById("done-tasks");
@@ -14,7 +14,7 @@ let NbrTodo = document.getElementById("to-do-tasks-count");
 let NbrIP = document.getElementById("in-progress-tasks-count");
 let NbrDone = document.getElementById("done-tasks-count");
 displayTask();
-createTask();
+saveTask();
 
 function displayTask() {
     let num = 1;
@@ -48,8 +48,10 @@ function displayTask() {
             NbrIP.innerHTML = + cip;
             inProgress.innerHTML +=
                 `<button class="task d-flex p-2 border-0 border-top">
-                    <div class="">
+                    <div class="d-grid">
                         <i class="fa fa-circle-notch fa-rotate-90 text-success ms-2 mt-2 fs-4"></i>
+                        <i class="bi bi-trash-fill text-danger fs-4 ms-2 mt-2"></i>
+                        <i class="bi bi-pencil-square ms-2 mt-1 fs-4"></i>
                     </div>
                     <div class="text-start ms-2 mt-1">
                         <div class="fw-bold text-dark">${tasks[i].title}</div>
@@ -70,8 +72,10 @@ function displayTask() {
             NbrDone.innerHTML = + cd;
             done.innerHTML +=
                 `<button class="task d-flex p-2 border-0 border-top">
-                    <div class="">
+                    <div class="d-grid">
                         <i class="fa-regular fa-circle-check text-success ms-2 mt-2 fs-4"></i>
+                        <i class="bi bi-trash-fill text-danger fs-4 ms-2 mt-2"></i>
+                        <i class="bi bi-pencil-square ms-2 mt-1 fs-4"></i>
                     </div>
                     <div class="text-start ms-2 mt-1">
                         <div class="fw-bold text-dark">${tasks[i].title}</div>
@@ -106,22 +110,6 @@ function clearTasks() {
 
 let data = {};
 function createTask() {
-    let form = document.getElementById("BtnSave").addEventListener("click", h);
-    function h() {
-        console.log("btnclicked");
-        formValidation();
-    }
-    let title = document.getElementById("title");
-
-    let formValidation = () => {
-        if (title.value === "") {
-            let msg = document.getElementById("msg");
-            msg.innerHTML = "Title can not be blank !";
-            console.log("failed");
-        }
-        else {
-            console.log("success");
-            msg.innerHTML = "";
             let title = document.getElementById("title");
             let priority = document.getElementById("priority");
             let status = document.getElementById("status");
@@ -146,18 +134,8 @@ function createTask() {
             }
             console.log(task);
             tasks.push(task);
-            clearTasks();
-            displayTask();
         }
-    }
-}
-
-
-
-
-
-function saveTask() {
-    // Recuperer task attributes a partir les champs input
+// Recuperer task attributes a partir les champs input
 
     // Créez task object   
 
@@ -165,9 +143,32 @@ function saveTask() {
 
     // refresh tasks
 
-}
+function saveTask() {
+    let form = document.getElementById("BtnSave").addEventListener("click", h);
+    function h() {
+        console.log("btnclicked");
+        formValidation();
+    }
+    let title = document.getElementById("title");
+    let buttonCancel = document.getElementById("cancel");
 
-function editTask(index) {
+    let formValidation = () => {
+        if (title.value === "") {
+            let msg = document.getElementById("msg");
+            msg.innerHTML = "Title can not be blank !";
+            console.log("failed");
+        }
+        else {
+            console.log("success");
+            msg.innerHTML = "";
+            createTask();
+            clearTasks();
+            document.getElementById('form').reset();
+            buttonCancel.click();
+            displayTask();
+        }
+    }
+}
     // Initialisez task form
 
     // Affichez updates
@@ -179,6 +180,8 @@ function editTask(index) {
     // Definir FORM INPUTS
 
     // Ouvrir Modal form
+function editTask(index) {
+
 }
 
 function updateTask() {
