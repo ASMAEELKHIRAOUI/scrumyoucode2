@@ -10,6 +10,8 @@ var todo = document.getElementById("to-do-tasks");
 var inProgress = document.getElementById("in-progress-tasks");
 var done = document.getElementById("done-tasks");
 
+let index;
+
 let NbrTodo = document.getElementById("to-do-tasks-count");
 let NbrIP = document.getElementById("in-progress-tasks-count");
 let NbrDone = document.getElementById("done-tasks-count");
@@ -24,20 +26,18 @@ function displayTask() {
             NbrTodo.innerHTML = ctd;
             todo.innerHTML +=
                 `<button class="task d-flex p-2 border-0 border-top">
-                    <div class="d-grid">
+                    <div class="col-1">
                         <i class="fa-regular fa-circle-question text-success ms-2 mt-2 fs-4"></i>
-                        <i class="bi bi-trash-fill text-danger fs-4 ms-2 mt-2"></i>
-                        <i class="bi bi-pencil-square ms-2 mt-1 fs-4"></i>
                     </div>
-                    <div class="text-start ms-2 mt-1">
+                    <div class="text-start ms-2 mt-1 col-11 px-2">
                         <div class="fw-bold text-dark">${tasks[i].title}</div>
                         <div class="">
                             <div class="text-secondary">#${num} created in ${tasks[i].date}</div>
                             <div title="${tasks[i].description}">${tasks[i].description.slice(0, 50)}...</div>
                         </div>
-                        <div class="">
-                            <span class="btn btn-primary btn-sm">${tasks[i].priority}</span>
-                            <span class="btn bg-light-600 btn-sm">${tasks[i].type}</span>
+                        <div class="d-flex justify-content-between">
+                                <span class="btn btn-primary btn-sm">${tasks[i].priority}</span>
+                                <span class="btn bg-light-600 btn-sm">${tasks[i].type}</span>
                         </div>
                     </div>
                 </button>`
@@ -48,20 +48,18 @@ function displayTask() {
             NbrIP.innerHTML = + cip;
             inProgress.innerHTML +=
                 `<button class="task d-flex p-2 border-0 border-top">
-                    <div class="d-grid">
+                    <div class="col-1">
                         <i class="fa fa-circle-notch fa-rotate-90 text-success ms-2 mt-2 fs-4"></i>
-                        <i class="bi bi-trash-fill text-danger fs-4 ms-2 mt-2"></i>
-                        <i class="bi bi-pencil-square ms-2 mt-1 fs-4"></i>
                     </div>
-                    <div class="text-start ms-2 mt-1">
+                    <div class="text-start ms-2 mt-1 col-11 px-2">
                         <div class="fw-bold text-dark">${tasks[i].title}</div>
                         <div class="">
                             <div class="text-secondary">#${num} created in ${tasks[i].date}</div>
                             <div title="${tasks[i].description}">${tasks[i].description.slice(0, 50)}...</div>
                         </div>
-                        <div class="">
-                            <span class="btn btn-primary btn-sm">${tasks[i].priority}</span>
-                            <span class="btn bg-light-600 btn-sm">${tasks[i].type}</span>
+                        <div class="d-flex justify-content-between">
+                                <span class="btn btn-primary btn-sm">${tasks[i].priority}</span>
+                                <span class="btn bg-light-600 btn-sm">${tasks[i].type}</span>
                         </div>
                     </div>
                 </button>`
@@ -72,18 +70,16 @@ function displayTask() {
             NbrDone.innerHTML = + cd;
             done.innerHTML +=
                 `<button class="task d-flex p-2 border-0 border-top">
-                    <div class="d-grid">
+                    <div class="col-1">
                         <i class="fa-regular fa-circle-check text-success ms-2 mt-2 fs-4"></i>
-                        <i class="bi bi-trash-fill text-danger fs-4 ms-2 mt-2"></i>
-                        <i class="bi bi-pencil-square ms-2 mt-1 fs-4"></i>
                     </div>
-                    <div class="text-start ms-2 mt-1">
+                    <div class="text-start ms-2 mt-1 col-11 px-2">
                         <div class="fw-bold text-dark">${tasks[i].title}</div>
                         <div class="">
                             <div class="text-secondary">#${num} created in ${tasks[i].date}</div>
                             <div title="${tasks[i].description}">${tasks[i].description.slice(0, 50)}...</div>
                         </div>
-                        <div class="">
+                        <div class="d-flex justify-content-between">
                             <span class="btn btn-primary btn-sm">${tasks[i].priority}</span>
                             <span class="btn bg-light-600 btn-sm">${tasks[i].type}</span>
                         </div>
@@ -107,7 +103,8 @@ function clearTasks() {
         i.remove();
     }
 }
-
+num=index;
+console.log(index);
 let data = {};
 function createTask() {
             let title = document.getElementById("title");
@@ -181,7 +178,6 @@ function saveTask() {
 
     // Ouvrir Modal form
 function editTask(index) {
-
 }
 
 function updateTask() {
@@ -196,16 +192,20 @@ function updateTask() {
     // Refresh tasks
 
 }
-
-function deleteTask() {
-    // Get index of task in the array
-
+// Get index of task in the array
+    
     // Remove task from array by index splice function
 
     // close modal form
 
     // refresh tasks
-}
+// function deleteTask(index) {
+//     let delete = document.getElementById("delete").addEventListener("click", d);
+//     function d() {
+//         console.log("btnclicked");
+//         index.parentElement.parentElement.remove();
+//     } 
+// }
 
 function initTaskForm() {
     // Clear task form from data
