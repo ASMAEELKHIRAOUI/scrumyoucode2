@@ -85,12 +85,6 @@ function displayTask() {
     }
 }
 
-// initialiser task form
-
-// Afficher le boutton save
-
-// Ouvrir modal form
-
 function clearTasks() {
     let tasks = document.querySelectorAll('.task');
     for (i of tasks) {
@@ -101,7 +95,6 @@ let feature = document.getElementById("Feature");
 let bug = document.getElementById("Bug");
 var type;
 let index;
-console.log(index);
 let data = {};
 function createTask() {
     let title = document.getElementById("title");
@@ -123,16 +116,8 @@ function createTask() {
         'date': date.value,
         'description': description.value,
     }
-    console.log(task);
     tasks.push(task);
 }
-// Recuperer task attributes a partir les champs input
-
-// Créez task object   
-
-// Ajoutez object au Array
-
-// refresh tasks
 
 function modalSaveTask() {
     document.getElementById("save").style.display = 'block';
@@ -142,9 +127,9 @@ function modalSaveTask() {
 
 let buttonCancel = document.getElementById("cancel");
 function saveTask() {
-    let form = document.getElementById("save").addEventListener("click", h);
+    let form = document.getElementById("save").addEventListener("click", getFormValidation);
     modalSaveTask();
-    function h() {
+    function getFormValidation() {
         console.log("btnclicked");
         formValidation();
     }
@@ -159,7 +144,6 @@ function saveTask() {
         else {
             console.log("success");
             msg.innerHTML = "";
-
             createTask();
             clearTasks();
             buttonCancel.click();
@@ -167,17 +151,6 @@ function saveTask() {
         }
     }
 }
-// Initialisez task form
-
-// Affichez updates
-
-// Delete Button
-
-// Définir l’index en entrée cachée pour l’utiliser en Update et Delete
-
-// Definir FORM INPUTS
-
-// Ouvrir Modal form
 
 let x;
 function editTask(index) {
@@ -195,16 +168,6 @@ function editTask(index) {
     updateTask();
 }
 
-
-// GET TASK ATTRIBUTES FROM INPUTS
-
-// Créez task object
-
-// Remplacer ancienne task par nouvelle task
-
-// Fermer Modal form
-
-// Refresh tasks
 function updateTask() {
     let newtype;
     if (feature.checked)
@@ -222,7 +185,6 @@ function updateTask() {
     }
 
     tasks[x] = data;
-    // editTask(x);
     buttonCancel.click();
     clearTasks();
 
@@ -231,15 +193,8 @@ function updateTask() {
     document.getElementById("save").style.display = 'none';
     document.getElementById("update").style.display = 'block';
     document.getElementById("delete").style.display = 'block';
-
 }
-// Get index of task in the array
 
-// Remove task from array by index splice function
-
-// close modal form
-
-// refresh tasks
 function deleteTask() {
     tasks.splice(x, 1);
     buttonCancel.click();
