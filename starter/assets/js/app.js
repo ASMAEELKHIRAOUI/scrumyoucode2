@@ -14,9 +14,10 @@ displayTask();
 
 function displayTask() {
     let countTasks = 1;
-    let countToDo= 1, countInProgress = 1, countDone = 1;
-    for (let i = 0; i < tasks.length; i++) {
+    let countToDo = 0, countInProgress = 0, countDone = 0;
+    for (let i = 0; i <= tasks.length; i++) {
         if (tasks[i].status == "To Do") {
+            countToDo++;
             NbrTodo.innerHTML = countToDo;
             todo.innerHTML +=
                 `<button data-bs-toggle="modal" data-bs-target="#modal" class="task d-flex p-2 border-0 border-top" onclick="editTask(${countTasks - 1})">
@@ -36,9 +37,10 @@ function displayTask() {
                     </div>
                 </button>`
             countTasks++;
-            countToDo++;
+
         }
         else if (tasks[i].status == "In Progress") {
+            countInProgress++;
             NbrIP.innerHTML = countInProgress;
             inProgress.innerHTML +=
                 `<button data-bs-toggle="modal" data-bs-target="#modal" class="task d-flex p-2 border-0 border-top" onclick="editTask(${countTasks - 1})">
@@ -58,9 +60,10 @@ function displayTask() {
                     </div>
                 </button>`
             countTasks++;
-            countInProgress++;
+
         }
         else if (tasks[i].status == "Done") {
+            countDone++;
             NbrDone.innerHTML = countDone;
             done.innerHTML +=
                 `<button data-bs-toggle="modal" data-bs-target="#modal" class="task d-flex p-2 border-0 border-top" onclick="editTask(${countTasks - 1})">
@@ -80,12 +83,14 @@ function displayTask() {
                     </div>
                 </button>`
             countTasks++;
-            countDone++;
+
         }
+
     }
+    // if(countToDo==1)
 }
 
-// clear the previous tasks to prevent duplicated tasks
+// clear the previous tasks to prevent duplicated text
 function clearTasks() {
     let tasks = document.querySelectorAll('.task');
     for (i of tasks) {
@@ -193,8 +198,8 @@ function updateTask() {
 }
 
 function deleteTask() {
-    if(confirm("Do you really want to delete this task ?"))
-    tasks.splice(x, 1);
+    if (confirm("Do you really want to delete this task ?"))
+        tasks.splice(x, 1);
     buttonCancel.click();
     clearTasks();
     displayTask();
