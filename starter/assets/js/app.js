@@ -13,20 +13,20 @@ let NbrDone = document.getElementById("done-tasks-count");
 displayTask();
 
 function displayTask() {
-    let num = 1;
-    let ctd = 1, cip = 1, cd = 1;
+    let countTasks = 1;
+    let countToDo= 1, countInProgress = 1, countDone = 1;
     for (let i = 0; i < tasks.length; i++) {
         if (tasks[i].status == "To Do") {
-            NbrTodo.innerHTML = ctd;
+            NbrTodo.innerHTML = countToDo;
             todo.innerHTML +=
-                `<button data-bs-toggle="modal" data-bs-target="#modal" class="task d-flex p-2 border-0 border-top" onclick="editTask(${num - 1})">
+                `<button data-bs-toggle="modal" data-bs-target="#modal" class="task d-flex p-2 border-0 border-top" onclick="editTask(${countTasks - 1})">
                     <div class="col-1">
                         <i class="fa-regular fa-circle-question text-success ms-2 mt-2 fs-4"></i>
                     </div>
                     <div class="text-start ms-2 mt-1 col-11 px-2">
                         <div class="fw-bold text-dark">${tasks[i].title}</div>
                         <div class="">
-                            <div class="text-secondary">#${num} created in ${tasks[i].date}</div>
+                            <div class="text-secondary">#${countTasks} created in ${tasks[i].date}</div>
                             <div title="${tasks[i].description}">${tasks[i].description.slice(0, 50)}...</div>
                         </div>
                         <div class="d-flex">
@@ -35,20 +35,20 @@ function displayTask() {
                         </div>
                     </div>
                 </button>`
-            num++;
-            ctd++;
+            countTasks++;
+            countToDo++;
         }
         else if (tasks[i].status == "In Progress") {
-            NbrIP.innerHTML = + cip;
+            NbrIP.innerHTML = + countInProgress;
             inProgress.innerHTML +=
-                `<button data-bs-toggle="modal" data-bs-target="#modal" class="task d-flex p-2 border-0 border-top" onclick="editTask(${num - 1})">
+                `<button data-bs-toggle="modal" data-bs-target="#modal" class="task d-flex p-2 border-0 border-top" onclick="editTask(${countTasks - 1})">
                     <div class="col-1">
                         <i class="fa fa-circle-notch fa-rotate-90 text-success ms-2 mt-2 fs-4"></i>
                     </div>
                     <div class="text-start ms-2 mt-1 col-11 px-2">
                         <div class="fw-bold text-dark">${tasks[i].title}</div>
                         <div class="">
-                            <div class="text-secondary">#${num} created in ${tasks[i].date}</div>
+                            <div class="text-secondary">#${countTasks} created in ${tasks[i].date}</div>
                             <div title="${tasks[i].description}">${tasks[i].description.slice(0, 50)}...</div>
                         </div>
                         <div class="d-flex">
@@ -57,20 +57,20 @@ function displayTask() {
                         </div>
                     </div>
                 </button>`
-            num++;
-            cip++;
+            countTasks++;
+            countInProgress++;
         }
         else if (tasks[i].status == "Done") {
-            NbrDone.innerHTML = + cd;
+            NbrDone.innerHTML = + countDone;
             done.innerHTML +=
-                `<button data-bs-toggle="modal" data-bs-target="#modal" class="task d-flex p-2 border-0 border-top" onclick="editTask(${num - 1})">
+                `<button data-bs-toggle="modal" data-bs-target="#modal" class="task d-flex p-2 border-0 border-top" onclick="editTask(${countTasks - 1})">
                     <div class="col-1">
                         <i class="fa-regular fa-circle-check text-success ms-2 mt-2 fs-4"></i>
                     </div>
                     <div class="text-start ms-2 mt-1 col-11 px-2">
                         <div class="fw-bold text-dark">${tasks[i].title}</div>
                         <div class="">
-                            <div class="text-secondary">#${num} created in ${tasks[i].date}</div>
+                            <div class="text-secondary">#${countTasks} created in ${tasks[i].date}</div>
                             <div title="${tasks[i].description}">${tasks[i].description.slice(0, 50)}...</div>
                         </div>
                         <div class="d-flex">
@@ -79,23 +79,24 @@ function displayTask() {
                         </div>
                     </div>
                 </button>`
-            num++;
-            cd++;
+            countTasks++;
+            countDone++;
         }
     }
 }
 
+// clear the previous tasks to prevent duplicated tasks
 function clearTasks() {
     let tasks = document.querySelectorAll('.task');
     for (i of tasks) {
         i.remove();
     }
 }
+
 let feature = document.getElementById("Feature");
 let bug = document.getElementById("Bug");
-var type;
-let index;
-let data = {};
+var type; //to determine if the type is a feature or a bug
+
 function createTask() {
     let title = document.getElementById("title");
     let priority = document.getElementById("priority");
@@ -119,31 +120,28 @@ function createTask() {
     tasks.push(task);
 }
 
-function modalSaveTask() {
-    document.getElementById("save").style.display = 'block';
-    document.getElementById("update").style.display = 'none';
-    document.getElementById("delete").style.display = 'none';
-}
-
 let buttonCancel = document.getElementById("cancel");
 function saveTask() {
     let form = document.getElementById("save").addEventListener("click", getFormValidation);
-    modalSaveTask();
+    document.getElementById("save").style.display = 'block';
+    document.getElementById("update").style.display = 'none';
+    document.getElementById("delete").style.display = 'none';
     function getFormValidation() {
         console.log("btnclicked");
         formValidation();
     }
     let title = document.getElementById("title");
 
+    // to check if the title is empty
     let formValidation = () => {
         if (title.value === "") {
             let msg = document.getElementById("msg");
-            msg.innerHTML = "Title can not be blank !";
+            msg.innerHTML = "Title can not be blank !"; //error message
             console.log("failed");
         }
         else {
             console.log("success");
-            msg.innerHTML = "";
+            msg.innerHTML = ""; //remove the error message
             createTask();
             clearTasks();
             buttonCancel.click();
@@ -187,7 +185,6 @@ function updateTask() {
     tasks[x] = data;
     buttonCancel.click();
     clearTasks();
-
     saveTask();
     displayTask();
     document.getElementById("save").style.display = 'none';
