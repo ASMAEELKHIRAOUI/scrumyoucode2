@@ -39,7 +39,7 @@ function displayTask() {
             countToDo++;
         }
         else if (tasks[i].status == "In Progress") {
-            NbrIP.innerHTML = + countInProgress;
+            NbrIP.innerHTML = countInProgress;
             inProgress.innerHTML +=
                 `<button data-bs-toggle="modal" data-bs-target="#modal" class="task d-flex p-2 border-0 border-top" onclick="editTask(${countTasks - 1})">
                     <div class="col-1">
@@ -61,7 +61,7 @@ function displayTask() {
             countInProgress++;
         }
         else if (tasks[i].status == "Done") {
-            NbrDone.innerHTML = + countDone;
+            NbrDone.innerHTML = countDone;
             done.innerHTML +=
                 `<button data-bs-toggle="modal" data-bs-target="#modal" class="task d-flex p-2 border-0 border-top" onclick="editTask(${countTasks - 1})">
                     <div class="col-1">
@@ -193,6 +193,7 @@ function updateTask() {
 }
 
 function deleteTask() {
+    if(confirm("Do you really want to delete this task ?"))
     tasks.splice(x, 1);
     buttonCancel.click();
     clearTasks();
